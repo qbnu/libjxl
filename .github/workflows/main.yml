@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2019
     
     # Run a job for each of the specified target architectures:
     strategy:
@@ -30,7 +30,7 @@ jobs:
           mkdir build
           cd build
           cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF ..
-          msbuild.exe /property:Platform=x64 /property:configuration="Release" LIBJXL.sln
+          msbuild.exe /p:Platform=x64 /p:configuration="Release" LIBJXL.sln /t:jxl_dec /t:jxl_threads
       - name: moving
         run: |
           mv build/lib/Release/* build/Release
